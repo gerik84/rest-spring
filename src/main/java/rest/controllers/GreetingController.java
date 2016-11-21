@@ -30,7 +30,7 @@ public class GreetingController extends BaseRestController {
 
     @RequestMapping(Path.ASD)
     public String asd() {
-        throw new NullPointerException();
+        throw new NullPointerException("Object not found");
         //return "asd";
     }
 

@@ -1,5 +1,7 @@
 package rest.handlings;
 
+import org.springframework.boot.autoconfigure.web.ErrorController;
+import rest.config.Path;
 import rest.models.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -9,26 +11,23 @@ import org.springframework.web.bind.annotation.*;
  */
 @ControllerAdvice
 @RestController
-class GlobalControllerExceptionHandler extends RuntimeException {
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Error handleConflict() {
-       return new Error(404, "Not found page");
-    }
+class GlobalControllerExceptionHandler extends RuntimeException implements ErrorController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class, NullPointerException.class })
-    public Error handleConflict500() {
-        return new Error(500, "Internal server error");
+    public Error handleConflict500(NullPointerException e) {
+        return new Error(500, e.getMessage());
     }
 
-//
-//
-//    @ExceptionHandler(value = Exception.class)
-//    @RequestMapping(value = Path.ERROR, produces = "text/json")
-//    public Error error() {
-//        return new Error(404, "M");
-//    }
+    @RequestMapping(Path.ERROR)
+    public Error error() {
+        return new Error(404, "Page not found");
+    }
 
+    @Override
+    public String getErrorPath() {
+
+        return Path.ERROR;
+    }
 
 }
