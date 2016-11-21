@@ -1,4 +1,4 @@
-package hello;
+package rest.controllers;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import rest.models.Greeting;
 
 @RestController
 public class GreetingController  implements ErrorController {
