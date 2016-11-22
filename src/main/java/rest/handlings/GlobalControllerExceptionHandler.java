@@ -26,7 +26,6 @@ class GlobalControllerExceptionHandler extends RuntimeException implements Error
 
     @Override
     public String getErrorPath() {
-
         return Path.ERROR;
     }
 
