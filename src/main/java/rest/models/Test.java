@@ -11,10 +11,9 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table
+@Table(name = "test")
 public class Test {
 
-    @Id
     @Column
     public int id;
 

@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.hibernate.Session;
 import rest.config.Path;
+import rest.db.HibernateUtil;
+import rest.models.Test;
 import rest.models.TestModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +33,18 @@ public class GreetingController extends BaseRestController {
 
     @RequestMapping(Path.ASD)
     public String asd() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        session.beginTransaction();
+
+        Test contactEntity = new Test();
+
+        contactEntity.id = 1;
+        contactEntity.title = "as";
+
+        session.save(contactEntity);
+        session.getTransaction().commit();
+        session.close();
         throw new NullPointerException("Object not found");
         //return "asd";
     }
