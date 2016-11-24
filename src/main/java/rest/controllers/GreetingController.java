@@ -7,10 +7,12 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.hibernate.Session;
 import rest.config.Path;
+import rest.db.GenrT;
 import rest.db.HibernateUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import rest.db.QueryBuilder;
 import rest.models.Test;
 
 import javax.persistence.criteria.CriteriaQuery;
@@ -33,13 +35,17 @@ public class GreetingController extends BaseRestController {
     @RequestMapping(Path.ASD)
     public List<Test> asd() {
 
-        HibernateUtil.select(Test.class);
+        //Test ss = QueryBuilder.newInstance(Test.class).where().findOne();
 
-        Session session1 = HibernateUtil.getSessionFactory().openSession();
-        CriteriaQuery<Test> criteriaQuery = session1.getCriteriaBuilder().createQuery(Test.class);
-        criteriaQuery.from(Test.class);
-            List<Test> tests = session1.createQuery(criteriaQuery).list();
-        session1.close();
+        List<Test> a = QueryBuilder.newInstance(Test.class).where().list();
+
+//        HibernateUtil.select(Test.class);
+//
+//        Session session1 = HibernateUtil.getSessionFactory().openSession();
+//        CriteriaQuery<Test> criteriaQuery = session1.getCriteriaBuilder().createQuery(Test.class);
+//        criteriaQuery.from(Test.class);
+//            List<Test> tests = session1.createQuery(criteriaQuery).list();
+//        session1.close();
 
 //        Session session = HibernateUtil.getSessionFactory().openSession();
 //        session.setProperty("hibernate.show_sql", "true");
@@ -51,7 +57,7 @@ public class GreetingController extends BaseRestController {
 //        session.save(contactEntity);
 //        session.getTransaction().commit();
 //        session.close();
-        return tests;
+        return a;
     }
 
 

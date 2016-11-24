@@ -16,6 +16,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 public class HibernateUtil {
 
+
     private static SessionFactory sessionFactory = buildSessionFactory();
 
     protected static SessionFactory buildSessionFactory() {
