@@ -5,18 +5,12 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.hibernate.Session;
 import rest.config.Path;
-import rest.db.GenrT;
-import rest.db.HibernateUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rest.db.QueryBuilder;
 import rest.models.Test;
-
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 @RestController
 public class GreetingController extends BaseRestController {
@@ -25,7 +19,7 @@ public class GreetingController extends BaseRestController {
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping(Path.GREETING)
-    public List<Test> greeting(@RequestParam(value="name", required=false, defaultValue="World") String name) {
+    public List<Test> greeting(@RequestParam(value = "name", required = false, defaultValue = "World") String name) {
         Test t = new Test();
         List<Test> response = new ArrayList<>();
         response.add(t);
@@ -33,33 +27,21 @@ public class GreetingController extends BaseRestController {
     }
 
     @RequestMapping(Path.ASD)
-    public List<Test> asd() {
+    public Test asd() {
 
-        //Test ss = QueryBuilder.newInstance(Test.class).where().findOne();
+        /*Test o = new Test();
+        o.setTitle("Test Titrle");
+        QueryBuilder.newSession(Test.class).save(o);*/
 
-        List<Test> a = QueryBuilder.newInstance(Test.class).where().list();
+        //List<Test> a = QueryBuilder.newSession(Test.class).where().eq("id", UUID.fromString("4063dd6b-fa9c-4f45-98c1-4f40fa9f0d61")).list();
+        //List<Test> a = QueryBuilder.newSession(Test.class).where().eq("id", UUID.fromString("4063dd6b-fa9c-4f45-98c1-4f40fa9f0d61")).list();
 
-//        HibernateUtil.select(Test.class);
-//
-//        Session session1 = HibernateUtil.getSessionFactory().openSession();
-//        CriteriaQuery<Test> criteriaQuery = session1.getCriteriaBuilder().createQuery(Test.class);
-//        criteriaQuery.from(Test.class);
-//            List<Test> tests = session1.createQuery(criteriaQuery).list();
-//        session1.close();
-
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        session.setProperty("hibernate.show_sql", "true");
-//        session.beginTransaction();
-//        Test contactEntity = new Test();
-////        contactEntity.setId(UUID.randomUUID());
-//        contactEntity.setTitle("asd");
-//
-//        session.save(contactEntity);
-//        session.getTransaction().commit();
-//        session.close();
-        return a;
+        return QueryBuilder
+                .newSession(Test.class)
+                .where()
+                .notEq("id", UUID.fromString("4063dd6b-fa9c-4f45-98c1-4f40fa9f0d61"))
+                .findOne();
     }
-
 
 
 }

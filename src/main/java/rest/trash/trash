@@ -1,0 +1,19 @@
+//        HibernateUtil.select(Test.class);
+//
+//        Session session1 = HibernateUtil.getSessionFactory().openSession();
+//        CriteriaQuery<Test> criteriaQuery = session1.getCriteriaBuilder().createQuery(Test.class);
+//        criteriaQuery.from(Test.class);
+//            List<Test> tests = session1.createQuery(criteriaQuery).list();
+//        session1.close();
+
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        session.setProperty("hibernate.show_sql", "true");
+//        session.beginTransaction();
+//        Test contactEntity = new Test();
+////        contactEntity.setId(UUID.randomUUID());
+//        contactEntity.setTitle("asd");
+//
+//        session.save(contactEntity);
+//        session.getTransaction().commit();
+//        session.close();
+ //Test ss = QueryBuilder.newInstance(Test.class).where().findOne();
