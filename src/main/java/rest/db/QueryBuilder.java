@@ -1,7 +1,6 @@
 package rest.db;
 
 import org.hibernate.Session;
-import rest.models.Test;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -39,12 +38,12 @@ public class QueryBuilder<T> {
         return mPredicateCreate;
     }
 
-    public Serializable save(T object) {
+    public T save(T object) {
         mSession.beginTransaction();
         mSession.save(object);
         mSession.getTransaction().commit();
         mSession.close();
-        return null;
+        return object;
     }
 
 
@@ -79,7 +78,14 @@ public class QueryBuilder<T> {
         }
 
         public PredicateCreate notEq(String field, Object value) {
+            predicates.add(mCriteriaBuilder.and());
             predicates.add(mCriteriaBuilder.notEqual(mEntity.get(field).as(value.getClass()), value));
+            return this;
+        }
+
+        public PredicateCreate and(List<Predicate> predicates) {
+//            Ebean.createQuery(Test.class).where().and()
+            predicates.add(mCriteriaBuilder.and(predicates.toArray(new Predicate[0])));
             return this;
         }
 

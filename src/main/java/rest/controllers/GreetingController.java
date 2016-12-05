@@ -19,11 +19,10 @@ public class GreetingController extends BaseRestController {
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping(Path.GREETING)
-    public List<Test> greeting(@RequestParam(value = "name", required = false, defaultValue = "World") String name) {
+    public Test greeting(@RequestParam(value = "name", required = false, defaultValue = "World") String name) {
         Test t = new Test();
-        List<Test> response = new ArrayList<>();
-        response.add(t);
-        return response;
+        t.setTitle(UUID.randomUUID().toString());
+        return QueryBuilder.newSession(Test.class).save(t);
     }
 
     @RequestMapping(Path.ASD)
